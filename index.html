@@ -109,7 +109,7 @@
             Nephele is a system that processes images to generate 3D meshes without backgrounds. By combining
             <b>SAM2</b> (Segment Anything Model 2) for object segmentation and <b>SuGaR</b> / <b>PGSR</b>
             (Surface-Aligned Gaussian Splatting) for surface-aligned Gaussian Splatting, it isolates a target
-            object from its surroundings and reconstructs an efficient, textured 3D mesh &mdash; ideal for
+            object from its surroundings and reconstructs an efficient, textured 3D mesh ideal for
             applications that require clean, background-free reconstructions. Named after the mythological
             Nephele, goddess of clouds, the module reflects the core idea behind Gaussian Splatting: representing
             geometry as a continuous, cloud-like density field rather than a set of discrete points. Nephele is
@@ -141,13 +141,13 @@
           </p>
           <ul>
             <li><b>Segmentation with SAM2:</b> the user annotates a few points of interest on a reference
-              image &mdash; positive clicks to keep, negative clicks to exclude &mdash; and SAM2 propagates a
+              image  positive clicks to keep, negative clicks to exclude and SAM2 propagates a
               binary mask that isolates the target object across all views.</li>
             <li><b>Pose estimation with COLMAP:</b> camera poses are recovered via Structure-from-Motion, giving
               each masked frame a consistent position in 3D space.</li>
             <li><b>Surface reconstruction with SuGaR / PGSR:</b> the masked frames and camera poses are fed into
-              a Gaussian Splatting model &mdash; <b>SuGaR</b> for general-purpose objects, or <b>PGSR</b> for
-              planar surfaces and thin structures such as textiles &mdash; which aligns the Gaussians to the
+              a Gaussian Splatting model <b>SuGaR</b> for general-purpose objects, or <b>PGSR</b> for
+              planar surfaces and thin structures such as textiles which aligns the Gaussians to the
               underlying surface and extracts a final textured mesh.</li>
           </ul>
         </div>
@@ -186,7 +186,7 @@
 
           <h3 class="title is-4" style="margin-top: 40px;">2. Model Selection</h3>
           <p>
-            The user picks the Gaussian Splatting model to use for reconstruction &mdash; <b>SuGaR</b>, a
+            The user picks the Gaussian Splatting model to use for reconstruction: <b>SuGaR</b>, a
             mature and widely-used general-purpose default, or <b>PGSR</b>, which better handles planar
             surfaces, textiles, and other thin structures. Both take the same masked frames and COLMAP poses as
             input and produce a textured mesh.

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Nephele: an open-source SAM2 + COLMAP + SuGaR/PGSR pipeline for background-free 3D mesh reconstruction.">
+  <meta name="keywords" content="Nephele, SAM2, SuGaR, PGSR, Gaussian Splatting, 3D Reconstruction, TEXTaiLES">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nephele: Background-Free 3D Mesh Reconstruction</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/nephele_logo_2.png" type="image/png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+    </div>
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+
+          <img src="./static/images/nephele_logo_2.png" alt="Nephele Logo"
+               style="width: 140px; margin-bottom: 20px;">
+
+          <h1 class="title is-1 publication-title">Nephele</h1>
+          <h2 class="subtitle is-4 publication-title" style="margin-top: 10px;">
+            An Open-Source SAM2 + COLMAP + SuGaR/PGSR Pipeline for Background-Free 3D Mesh Reconstruction
+          </h2>
+
+          <div class="is-size-5 publication-authors" style="margin-top: 20px;">
+            <span class="author-block">Athena Research Center</span><br>
+            <span class="author-block" style="font-size: 0.85em; color: #555;">TEXTaiLES Project</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/TEXTaiLES/SAMplify_SuGaR"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Documentation Link. -->
+              <span class="link-block">
+                <a href="https://textailes.github.io/SAMplify_SuGaR-documentation/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-alt"></i>
+                  </span>
+                  <span>Documentation</span>
+                  </a>
+              </span>
+              <!-- License Link. -->
+              <span class="link-block">
+                <a href="https://github.com/TEXTaiLES/SAMplify_SuGaR/blob/main/LICENSE"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-balance-scale"></i>
+                  </span>
+                  <span>MIT License</span>
+                  </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Abstract Section -->
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            Nephele is a system that processes images to generate 3D meshes without backgrounds. By combining
+            <b>SAM2</b> (Segment Anything Model 2) for object segmentation and <b>SuGaR</b> / <b>PGSR</b>
+            (Surface-Aligned Gaussian Splatting) for surface-aligned Gaussian Splatting, it isolates a target
+            object from its surroundings and reconstructs an efficient, textured 3D mesh &mdash; ideal for
+            applications that require clean, background-free reconstructions. Named after the mythological
+            Nephele, goddess of clouds, the module reflects the core idea behind Gaussian Splatting: representing
+            geometry as a continuous, cloud-like density field rather than a set of discrete points. Nephele is
+            developed as part of the <b>TEXTaiLES</b> project at the Athena Research Center and is designed to
+            be run locally or deployed as a self-hostable pipeline, with a browser-based UI that requires no
+            programming to operate.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Overview / Pipeline Section -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Pipeline</h2>
+
+        <img src="./static/images/pipeline_SAMplify_SuGaR.png" alt="Nephele Pipeline"
+             style="width: 90%; max-width: 700px; margin-bottom: 20px;">
+
+        <div class="content has-text-justified">
+          <p>
+            Given a set of multi-view images (or a video, or a scan pulled directly from the <b>HESTIA</b>
+            database of the TEXTaiLES project), Nephele runs a three-stage pipeline:
+          </p>
+          <ul>
+            <li><b>Segmentation with SAM2:</b> the user annotates a few points of interest on a reference
+              image &mdash; positive clicks to keep, negative clicks to exclude &mdash; and SAM2 propagates a
+              binary mask that isolates the target object across all views.</li>
+            <li><b>Pose estimation with COLMAP:</b> camera poses are recovered via Structure-from-Motion, giving
+              each masked frame a consistent position in 3D space.</li>
+            <li><b>Surface reconstruction with SuGaR / PGSR:</b> the masked frames and camera poses are fed into
+              a Gaussian Splatting model &mdash; <b>SuGaR</b> for general-purpose objects, or <b>PGSR</b> for
+              planar surfaces and thin structures such as textiles &mdash; which aligns the Gaussians to the
+              underlying surface and extracts a final textured mesh.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Workflow / UI Usage Section -->
+<section class="section has-background-light">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Workflow</h2>
+
+        <div class="content has-text-justified">
+
+          <h3 class="title is-4">Stages of Nephele</h3>
+          <p>
+            The browser-based interface guides the user end-to-end, from raw images to a downloadable 3D mesh.
+          </p>
+          <figure class="image">
+            <img src="./static/images/get_started.png" alt="Stages of Nephele">
+          </figure>
+
+          <h3 class="title is-4" style="margin-top: 40px;">1. Upload Data</h3>
+          <p>
+            Input can be provided in one of three ways: uploading images from a local folder, uploading a video
+            from which frames are automatically extracted, or loading an existing scan dataset directly from
+            HESTIA.
+          </p>
+          <figure class="image">
+            <img src="./static/images/upload_data.png" alt="Upload data">
+          </figure>
+
+          <h3 class="title is-4" style="margin-top: 40px;">2. Model Selection</h3>
+          <p>
+            The user picks the Gaussian Splatting model to use for reconstruction &mdash; <b>SuGaR</b>, a
+            mature and widely-used general-purpose default, or <b>PGSR</b>, which better handles planar
+            surfaces, textiles, and other thin structures. Both take the same masked frames and COLMAP poses as
+            input and produce a textured mesh.
+          </p>
+          <figure class="image">
+            <img src="./static/images/pick_model.png" alt="Model selection">
+          </figure>
+
+          <h3 class="title is-4" style="margin-top: 40px;">3. Image Loading and Point Annotation</h3>
+          <p>
+            After loading a reference image, the user clicks to add points of interest: a left-click adds a
+            positive point (green) marking part of the object to keep, and a right-click adds a negative point
+            (red) marking part to exclude. These points target the regions used to generate the mask.
+          </p>
+          <figure class="image">
+            <img src="./static/images/pick_points.png" alt="Point annotation">
+          </figure>
+
+          <h3 class="title is-4" style="margin-top: 40px;">4. Mask Generation with SAM2</h3>
+          <p>
+            Once enough points are added, SAM2 generates a binary mask isolating the object, which is overlaid
+            on the original image for quick visual review.
+          </p>
+          <figure class="image">
+            <img src="./static/images/preview_images.png" alt="Mask preview">
+          </figure>
+
+          <h3 class="title is-4" style="margin-top: 40px;">5. Final Output</h3>
+          <p>
+            After reviewing the preview images, the user continues to the results page. Once processing
+            finishes, the final outputs are available for download.
+          </p>
+          <figure class="image">
+            <img src="./static/images/result_page.png" alt="Results page">
+          </figure>
+
+          <p style="margin-top: 20px;">
+            The final deliverable is an <code>.obj</code> mesh with the object isolated from its background,
+            ready for further processing or downstream 3D reconstruction workflows.
+          </p>
+          <figure class="image">
+            <img src="./static/images/obj.png" alt="OBJ output" style="max-width: 480px;">
+          </figure>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- BibTeX Section -->
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Citation</h2>
+    <pre><code>@software{Nephele_TEXTaiLES_2026,
+  author  = {{Athena Research Center}},
+  title   = {{Nephele: SAM2 + COLMAP + SuGaR pipeline for background-free 3D mesh reconstruction}},
+  url     = {https://github.com/TEXTaiLES/SAMplify_SuGaR},
+  version = {0.1.0},
+  year    = {2025},
+  license = {MIT}
+}</code></pre>
+  </div>
+</section>
+
+
+<!-- Footer Section -->
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+          The website template is taken and adapted from
+            <a href="https://github.com/nerfies/nerfies.github.io"> Nerfies</a>
+          and licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
